@@ -19,3 +19,16 @@ scene
 );
 light.intensity = 1;
 }
+
+/*Ground */
+const ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 20, height: 20}, scene);
+const groundMat = new BABYLON.StandardMaterial("groundMat", scene);
+groundMat.diffuseColor = new BABYLON.Color3(0.4, 0.8, 0.4);
+ground.material = groundMat;
+
+/*Table */
+const table = BABYLON.MeshBuilder.CreateBox("table", {width: 2, height: 1, depth: 1}, scene);
+table.position.y = 0.5;
+const tableMat = new BABYLON.StandardMaterial("tableMat", scene);
+tableMat.diffuseColor = new BABYLON.Color3(0.6, 0.3, 0.1);
+table.material = tableMat;
