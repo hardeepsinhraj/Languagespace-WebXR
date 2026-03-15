@@ -47,6 +47,18 @@ const chairMat = new BABYLON.StandardMaterial("chairMat", scene);
 chairMat.diffuseColor = new BABYLON.Color3(0.3, 0.3, 0.8);
 chair.material = chairMat;
 
+/* GUI */
+
+const gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+const text = new BABYLON.GUI.TextBlock();
+
+text.text = "Click the avatar to start conversation";
+text.color = "white";
+text.fontSize = 30;
+text.top = "-40%";
+
+gui.addControl(text);
 
 return scene;
 };
