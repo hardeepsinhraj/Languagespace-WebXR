@@ -42,6 +42,9 @@ scene
 );
 
 barista.position = new BABYLON.Vector3(0,1,3);
+const baristaMat = new BABYLON.StandardMaterial("baristaMat", scene);
+baristaMat.diffuseColor = new BABYLON.Color3(1, 0, 0); // red
+barista.material = baristaMat;
 
 
 const waiter = BABYLON.MeshBuilder.CreateSphere(
@@ -51,7 +54,9 @@ scene
 );
 
 waiter.position = new BABYLON.Vector3(3,1,0);
-
+const waiterMat = new BABYLON.StandardMaterial("waiterMat", scene);
+waiterMat.diffuseColor = new BABYLON.Color3(0, 1, 0); // green
+waiter.material = waiterMat;
 
 const customer = BABYLON.MeshBuilder.CreateSphere(
 "customer",
@@ -60,12 +65,15 @@ scene
 );
 
 customer.position = new BABYLON.Vector3(-3,1,0);
+const customerMat = new BABYLON.StandardMaterial("customerMat", scene);
+customerMat.diffuseColor = new BABYLON.Color3(0, 0, 1); // blue
+customer.material = customerMat;
 
 /*Chair */
 const chair = BABYLON.MeshBuilder.CreateBox("chair", {width: 1, height: 1, depth: 1}, scene);
 chair.position = new BABYLON.Vector3(-2, 0.5, 0);
 const chairMat = new BABYLON.StandardMaterial("chairMat", scene);
-chairMat.diffuseColor = new BABYLON.Color3(0.3, 0.3, 0.8);
+chairMat.diffuseColor = new BABYLON.Color3(0.2, 0.2, 0.2);
 chair.material = chairMat;
 
 /* GUI Text*/
