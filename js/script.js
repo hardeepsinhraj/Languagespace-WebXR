@@ -26,19 +26,40 @@ const groundMat = new BABYLON.StandardMaterial("groundMat", scene);
 groundMat.diffuseColor = new BABYLON.Color3(0.4, 0.8, 0.4);
 ground.material = groundMat;
 
-/*Table */
-const table = BABYLON.MeshBuilder.CreateBox("table", {width: 2, height: 1, depth: 1}, scene);
-table.position.y = 0.5;
+/*cafe-Table */
+const table = BABYLON.MeshBuilder.CreateBox("table", {width: 4, height: 1.5, depth: 1}, scene);
+table.position = new BABYLON.Vector3(0, 0.75, 4);
+
 const tableMat = new BABYLON.StandardMaterial("tableMat", scene);
-tableMat.diffuseColor = new BABYLON.Color3(0.6, 0.3, 0.1);
+tableMat.diffuseColor = new BABYLON.Color3(0.6,0.3,0.1);
 table.material = tableMat;
 
-/*Avatar */
-const avatar = BABYLON.MeshBuilder.CreateSphere("avatar", {diameter: 1}, scene);
-avatar.position = new BABYLON.Vector3(2, 1, 0);
-const avatarMat = new BABYLON.StandardMaterial("avatarMat", scene);
-avatarMat.diffuseColor = new BABYLON.Color3(1, 0.2, 0.2);
-avatar.material = avatarMat;
+/*cafe-Avatar */
+const barista = BABYLON.MeshBuilder.CreateSphere(
+"barista",
+{diameter:1},
+scene
+);
+
+barista.position = new BABYLON.Vector3(0,1,3);
+
+
+const waiter = BABYLON.MeshBuilder.CreateSphere(
+"waiter",
+{diameter:1},
+scene
+);
+
+waiter.position = new BABYLON.Vector3(3,1,0);
+
+
+const customer = BABYLON.MeshBuilder.CreateSphere(
+"customer",
+{diameter:1},
+scene
+);
+
+customer.position = new BABYLON.Vector3(-3,1,0);
 
 /*Chair */
 const chair = BABYLON.MeshBuilder.CreateBox("chair", {width: 1, height: 1, depth: 1}, scene);
@@ -47,7 +68,7 @@ const chairMat = new BABYLON.StandardMaterial("chairMat", scene);
 chairMat.diffuseColor = new BABYLON.Color3(0.3, 0.3, 0.8);
 chair.material = chairMat;
 
-/* GUI */
+/* GUI Text*/
 
 const gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
@@ -59,6 +80,42 @@ text.fontSize = 30;
 text.top = "-40%";
 
 gui.addControl(text);
+
+/* Interaction */
+barista.actionManager = new BABYLON.ActionManager(scene);
+
+barista.actionManager.registerAction(
+new BABYLON.ExecuteCodeAction(
+BABYLON.ActionManager.OnPickTrigger,
+function(){
+text.text = "Hello! What would you like to order?";
+}
+)
+);
+
+waiter.actionManager = new BABYLON.ActionManager(scene);
+
+waiter.actionManager.registerAction(
+new BABYLON.ExecuteCodeAction(
+BABYLON.ActionManager.OnPickTrigger,
+function(){
+text.text = "Would you like coffee or tea?";
+}
+)
+);
+
+customer.actionManager = new BABYLON.ActionManager(scene);
+
+customer.actionManager.registerAction(
+new BABYLON.ExecuteCodeAction(
+BABYLON.ActionManager.OnPickTrigger,
+function(){
+text.text = "Is this seat taken?";
+}
+)
+);
+
+
 
 return scene;
 };
