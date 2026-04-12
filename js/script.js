@@ -35,39 +35,47 @@ tableMat.diffuseColor = new BABYLON.Color3(0.6,0.3,0.1);
 table.material = tableMat;
 
 /*cafe-Avatar */
-const barista = BABYLON.MeshBuilder.CreateSphere(
-"barista",
-{diameter:1},
-scene
-);
 
-barista.position = new BABYLON.Vector3(0,1,3);
-const baristaMat = new BABYLON.StandardMaterial("baristaMat", scene);
-baristaMat.diffuseColor = new BABYLON.Color3(1, 0, 0); // red
-barista.material = baristaMat;
+    const barista = BABYLON.SceneLoader.ImportMeshAsync("", "../meshes/", "barista3.glb").then((result) => {
+        // Do this stuff after the mesh has loaded
+        const baristaMesh = result.meshes[0];
+        // Grab the bouding box
+        const baristaBounds = result.meshes[1];
+        baristaBounds.showBoundingBox = true;
+        // wheelMesh.position = new BABYLON.Vector3(0, 0, 0);
+        baristaMesh.scaling = new BABYLON.Vector3(50, 50, 70);
+        baristaMesh.position = new BABYLON.Vector3(0.3, 0.9, 4.9);
+    }).catch((error) => {
+        // Oops, the mesh didn't load for some reason
+        console.error("Error loading mesh: " + error);
+        return null;
+    });
 
 
-const waiter = BABYLON.MeshBuilder.CreateSphere(
-"waiter",
-{diameter:1},
-scene
-);
 
-waiter.position = new BABYLON.Vector3(3,1,0);
-const waiterMat = new BABYLON.StandardMaterial("waiterMat", scene);
-waiterMat.diffuseColor = new BABYLON.Color3(0, 1, 0); // green
-waiter.material = waiterMat;
+const waiter = BABYLON.SceneLoader.ImportMeshAsync("", "../meshes/", "waiter.glb").then((result) => {
+    // Do this stuff after the mesh has loaded
+    const waiterMesh = result.meshes[0];
+    waiterMesh.scaling = new BABYLON.Vector3(50, 50, 70);
+    waiterMesh.position = new BABYLON.Vector3(1.5, 0, 0.2);
+}).catch((error) => {
+    // Oops, the mesh didn't load for some reason
+    console.error("Error loading mesh: " + error);
+    return null;
+});
 
-const customer = BABYLON.MeshBuilder.CreateSphere(
-"customer",
-{diameter:1},
-scene
-);
 
-customer.position = new BABYLON.Vector3(-3,1,0);
-const customerMat = new BABYLON.StandardMaterial("customerMat", scene);
-customerMat.diffuseColor = new BABYLON.Color3(0, 0, 1); // blue
-customer.material = customerMat;
+const customer = BABYLON.SceneLoader.ImportMeshAsync("", "../meshes/", "customer1.glb").then((result) => {
+    // Do this stuff after the mesh has loaded
+    const customerMesh = result.meshes[0];
+    customerMesh.scaling = new BABYLON.Vector3(50, 50, 70);
+    customerMesh.position = new BABYLON.Vector3(-3, 0.5, -0.1);
+}).catch((error) => {
+    // Oops, the mesh didn't load for some reason
+    console.error("Error loading mesh: " + error);
+    return null;
+});
+
 
 /*Chair */
 const chair = BABYLON.MeshBuilder.CreateBox("chair", {width: 1, height: 1, depth: 1}, scene);
