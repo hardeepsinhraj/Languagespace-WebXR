@@ -9,15 +9,7 @@ const scene = new BABYLON.Scene(engine);
 scene.clearColor = new BABYLON.Color3(0.8,0.9,1);
 
 // enable AR
- const xr = await scene.createDefaultXRExperienceAsync({
-        uiOptions: {
-            sessionMode: "immersive-ar",
-           
-            referenceSpaceType: "local-floor"
-        },
-        
-        optionalFeatures: ["hit-test", "anchors"]
-    });
+const xr = await scene.createDefaultXRExperienceAsync();
 
 /* Camera */
 const camera = new BABYLON.ArcRotateCamera("camera",-Math.PI / 2,Math.PI / 2.5,15,new BABYLON.Vector3(0, 0, 0), scene);
@@ -53,7 +45,7 @@ table.material = tableMat;
     // BARISTA
 let baristaMeshes;
 
-await BABYLON.SceneLoader.ImportMeshAsync("", "../meshes/", "barista3.glb", scene)
+await BABYLON.SceneLoader.ImportMeshAsync("", "meshes/", "barista3.glb", scene)
 .then((result) => {
 
     baristaMeshes = result.meshes;
@@ -78,7 +70,7 @@ await BABYLON.SceneLoader.ImportMeshAsync("", "../meshes/", "barista3.glb", scen
 // WAITER
 let waiterMeshes;
 
-await BABYLON.SceneLoader.ImportMeshAsync("", "../meshes/", "waiter.glb", scene)
+await BABYLON.SceneLoader.ImportMeshAsync("", "meshes/", "waiter.glb", scene)
 .then((result) => {
 
     waiterMeshes = result.meshes;
@@ -96,7 +88,7 @@ await BABYLON.SceneLoader.ImportMeshAsync("", "../meshes/", "waiter.glb", scene)
 // CUSTOMER
 let customerMeshes;
 
-await BABYLON.SceneLoader.ImportMeshAsync("", "../meshes/", "customer1.glb", scene)
+await BABYLON.SceneLoader.ImportMeshAsync("", "meshes/", "customer1.glb", scene)
 .then((result) => {
 
     customerMeshes = result.meshes;
