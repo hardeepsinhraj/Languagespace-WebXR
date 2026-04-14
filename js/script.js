@@ -9,13 +9,13 @@ const scene = new BABYLON.Scene(engine);
 scene.clearColor = new BABYLON.Color3(0.8,0.9,1);
 
 // enable AR
-const xr = await scene.createDefaultXRExperienceAsync({
-    uiOptions: {
-        sessionMode: "immersive-ar",
-        referenceSpaceType: "local-floor"
-    },
-    optionalFeatures: ["hit-test", "anchors"]
-});
+// const xr = await scene.createDefaultXRExperienceAsync({
+//     uiOptions: {
+//         sessionMode: "immersive-ar",
+//         referenceSpaceType: "local-floor"
+//     },
+//     optionalFeatures: ["hit-test", "anchors"]
+// });
 
 /* Camera */
 const camera = new BABYLON.ArcRotateCamera("camera",-Math.PI / 2,Math.PI / 2.5,15,new BABYLON.Vector3(0, 0, 0), scene);
@@ -40,30 +40,30 @@ ground.material = groundMat;
 //Back wall
 const backWall = BABYLON.MeshBuilder.CreateBox(
 "backWall",
-{width: 20, height: 10, depth: 0.5},
+{width: 20, height: 8, depth: 0.5},
 scene
 );
 
-backWall.position = new BABYLON.Vector3(0, 5, 10);
+backWall.position = new BABYLON.Vector3(0, 1.5, 10);
 
 
 //left wall
 const leftWall = BABYLON.MeshBuilder.CreateBox(
 "leftWall",
-{width: 0.5, height: 10, depth: 20},
+{width: 0.5, height: 5, depth: 15},
 scene
 );
 
-leftWall.position = new BABYLON.Vector3(-10, 5, 0);
+leftWall.position = new BABYLON.Vector3(-7, 2.5, 4.9);
 
 //right wall
 const rightWall = BABYLON.MeshBuilder.CreateBox(
 "rightWall",
-{width: 0.5, height: 10, depth: 20},
+{width: 0.5, height: 5, depth: 15},
 scene
 );
 
-rightWall.position = new BABYLON.Vector3(10, 5, 0);
+rightWall.position = new BABYLON.Vector3(7, 2.5, 5);
 
 const wallMat = new BABYLON.StandardMaterial("wallMat", scene);
 wallMat.diffuseColor = new BABYLON.Color3(1, 0.9, 0.8); // warm cafe color
@@ -142,6 +142,8 @@ await BABYLON.SceneLoader.ImportMeshAsync("", "meshes/", "customer1.glb", scene)
     });
 });
 
+
+
 /*Chair */
 
 const chair = BABYLON.MeshBuilder.CreateBox("chair", {width: 1, height: 1, depth: 1}, scene);
@@ -149,6 +151,25 @@ chair.position = new BABYLON.Vector3(-2, 0.5, 0);
 const chairMat = new BABYLON.StandardMaterial("chairMat", scene);
 chairMat.diffuseColor = new BABYLON.Color3(0.2, 0.2, 0.2);
 chair.material = chairMat;
+
+const table3 = table.clone("table3");
+table3.position = new BABYLON.Vector3(-3, 0.75, -6);
+
+const chair3 = chair.clone("chair3");
+chair3.position = new BABYLON.Vector3(-3, 0.5, -4.5);
+
+const table4 = table.clone("table4");
+table4.position = new BABYLON.Vector3(3, 0.75, -6);
+
+const chair4 = chair.clone("chair4");
+chair4.position = new BABYLON.Vector3(3, 0.5, -4.5);
+
+/*Tree */
+ const tree = BABYLON.SceneLoader.ImportMeshAsync("", "./meshes/", "tree.glb").then((result) => {
+        result.meshes[0].position = new BABYLON.Vector3(-8, 0.1, -7.5);
+        
+        result.meshes[0].scaling = new BABYLON.Vector3(250, 250, 250);
+    });
 
 /* GUI Text*/
 
