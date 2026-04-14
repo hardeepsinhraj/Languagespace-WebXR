@@ -12,8 +12,9 @@ scene.clearColor = new BABYLON.Color3(0.8,0.9,1);
 const xr = await scene.createDefaultXRExperienceAsync();
 
 /* Camera */
-// const camera = new BABYLON.ArcRotateCamera("camera",-Math.PI / 2,Math.PI / 2.5,15,new BABYLON.Vector3(0, 0, 0), scene);
-// camera.attachControl(canvas, true);
+const camera = new BABYLON.ArcRotateCamera("camera",-Math.PI / 2,Math.PI / 2.5,15,new BABYLON.Vector3(0, 0, 0), scene);
+camera.attachControl(canvas, true);
+scene.activeCamera = camera;
 
 /* Light */
 const light = new BABYLON.HemisphericLight(
@@ -140,7 +141,7 @@ await BABYLON.SceneLoader.ImportMeshAsync("", "meshes/", "customer1.glb", scene)
 
 /*Chair */
 
-const chair = BABYLON.MeshBuilder.CreateBox("chair", {width: 1, height: 1, depth: 1}, scene);
+const chair = BABYLON.MeshBuilder.CreateBox("chair", {width: 0.5, height: 0.5, depth: 0.5}, scene);
 chair.position = new BABYLON.Vector3(-2, 0.5, 0);
 const chairMat = new BABYLON.StandardMaterial("chairMat", scene);
 chairMat.diffuseColor = new BABYLON.Color3(0.2, 0.2, 0.2);
