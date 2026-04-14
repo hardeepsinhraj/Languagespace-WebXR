@@ -14,7 +14,7 @@ const xr = await scene.createDefaultXRExperienceAsync();
 /* Camera */
 const camera = new BABYLON.ArcRotateCamera("camera",-Math.PI / 2,Math.PI / 2.5,15,new BABYLON.Vector3(0, 0, 0), scene);
 camera.attachControl(canvas, true);
-
+scene.activeCamera = camera;
 /* Light */
 const light = new BABYLON.HemisphericLight(
 "light",
@@ -163,6 +163,12 @@ chair4.position = new BABYLON.Vector3(3, 0.5, -4.5);
         result.meshes[0].position = new BABYLON.Vector3(-8, 0.1, -7.5);
         
         result.meshes[0].scaling = new BABYLON.Vector3(250, 250, 250);
+    });
+
+    /*tree2 */
+    const tree2 = BABYLON.SceneLoader.ImportMeshAsync("", "./meshes/", "tree2.glb").then((result) => {
+        result.meshes[0].position = new BABYLON.Vector3(8, 0.1, -7.5);
+        result.meshes[0].scaling = new BABYLON.Vector3(150, 150, 150);
     });
 
 /* GUI Text*/
