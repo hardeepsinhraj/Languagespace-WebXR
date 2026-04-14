@@ -34,6 +34,43 @@ const groundMat = new BABYLON.StandardMaterial("groundMat", scene);
 groundMat.diffuseColor = new BABYLON.Color3(0.4, 0.8, 0.4);
 ground.material = groundMat;
 
+// Walls
+//Back wall
+const backWall = BABYLON.MeshBuilder.CreateBox(
+"backWall",
+{width: 20, height: 10, depth: 0.5},
+scene
+);
+
+backWall.position = new BABYLON.Vector3(0, 5, -10);
+
+
+//left wall
+const leftWall = BABYLON.MeshBuilder.CreateBox(
+"leftWall",
+{width: 0.5, height: 10, depth: 20},
+scene
+);
+
+leftWall.position = new BABYLON.Vector3(-10, 5, 0);
+
+//right wall
+const rightWall = BABYLON.MeshBuilder.CreateBox(
+"rightWall",
+{width: 0.5, height: 10, depth: 20},
+scene
+);
+
+rightWall.position = new BABYLON.Vector3(10, 5, 0);
+
+const wallMat = new BABYLON.StandardMaterial("wallMat", scene);
+wallMat.diffuseColor = new BABYLON.Color3(1, 0.9, 0.8); // warm cafe color
+
+backWall.material = wallMat;
+leftWall.material = wallMat;
+rightWall.material = wallMat;
+
+
 /*cafe-Table */
 const table = BABYLON.MeshBuilder.CreateBox("table", {width: 4, height: 1.5, depth: 1}, scene);
 table.position = new BABYLON.Vector3(0, 0.75, 4);
@@ -46,7 +83,8 @@ table.material = tableMat;
 
 /*cafe-Avatar */
 
-    // BARISTA
+// BARISTA
+
 let baristaMeshes;
 
 await BABYLON.SceneLoader.ImportMeshAsync("", "meshes/", "barista3.glb", scene)
@@ -64,8 +102,6 @@ await BABYLON.SceneLoader.ImportMeshAsync("", "meshes/", "barista3.glb", scene)
         mesh.isPickable = true;
     });
 });
-
-
 
 
 // WAITER
@@ -105,6 +141,7 @@ await BABYLON.SceneLoader.ImportMeshAsync("", "meshes/", "customer1.glb", scene)
 });
 
 /*Chair */
+
 const chair = BABYLON.MeshBuilder.CreateBox("chair", {width: 1, height: 1, depth: 1}, scene);
 chair.position = new BABYLON.Vector3(-2, 0.5, 0);
 const chairMat = new BABYLON.StandardMaterial("chairMat", scene);
