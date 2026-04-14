@@ -11,8 +11,10 @@ scene.clearColor = new BABYLON.Color3(0.8,0.9,1);
 // enable AR
 const xr = await scene.createDefaultXRExperienceAsync({
     uiOptions: {
-        sessionMode: "immersive-ar"
-    }
+        sessionMode: "immersive-ar",
+        referenceSpaceType: "local-floor"
+    },
+    optionalFeatures: ["hit-test", "anchors"]
 });
 
 /* Camera */
@@ -42,7 +44,7 @@ const backWall = BABYLON.MeshBuilder.CreateBox(
 scene
 );
 
-backWall.position = new BABYLON.Vector3(0, 5, -10);
+backWall.position = new BABYLON.Vector3(0, 5, 10);
 
 
 //left wall
@@ -157,7 +159,7 @@ const text = new BABYLON.GUI.TextBlock();
 text.text = "Click the avatar to start conversation";
 text.color = "white";
 text.fontSize = 30;
-text.top = "-40%";
+text.top = "30%";
 
 gui.addControl(text);
 
