@@ -9,11 +9,11 @@ const scene = new BABYLON.Scene(engine);
 scene.clearColor = new BABYLON.Color3(0.8,0.9,1);
 
 // enable AR
-// const xr = await scene.createDefaultXRExperienceAsync();
+const xr = await scene.createDefaultXRExperienceAsync();
 
 /* Camera */
-const camera = new BABYLON.ArcRotateCamera("camera",-Math.PI / 2,Math.PI / 2.5,15,new BABYLON.Vector3(0, 0, 0), scene);
-camera.attachControl(canvas, true);
+// const camera = new BABYLON.ArcRotateCamera("camera",-Math.PI / 2,Math.PI / 2.5,15,new BABYLON.Vector3(0, 0, 0), scene);
+// camera.attachControl(canvas, true);
 
 /* Light */
 const light = new BABYLON.HemisphericLight(
