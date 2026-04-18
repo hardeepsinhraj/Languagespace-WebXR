@@ -31,7 +31,8 @@ const groundMat = new BABYLON.StandardMaterial("groundMat", scene);
 groundMat.diffuseColor = new BABYLON.Color3(0.4, 0.8, 0.4);
 ground.material = groundMat;
 
-// Walls
+/* Walls */
+
 //Back wall
 const backWall = BABYLON.MeshBuilder.CreateBox(
 "backWall",
@@ -82,14 +83,10 @@ table.material = tableMat;
 
 // BARISTA
 
-let baristaMeshes;
-
 await BABYLON.SceneLoader.ImportMeshAsync("", "meshes/", "barista3.glb", scene)
 .then((result) => {
 
-    baristaMeshes = result.meshes;
-    const rootMesh = result.meshes[0];
-    baristaMeshes.forEach(mesh => {
+    result.meshes.forEach(mesh => {
 
         if (!mesh.getTotalVertices || mesh.getTotalVertices() === 0) return;
 
@@ -97,46 +94,78 @@ await BABYLON.SceneLoader.ImportMeshAsync("", "meshes/", "barista3.glb", scene)
         mesh.position = new BABYLON.Vector3(0.3, -4.7, 0.5);
         mesh.rotation.y += Math.PI;
         mesh.isPickable = true;
+
+        mesh.actionManager = new BABYLON.ActionManager(scene);
+
+        mesh.actionManager.registerAction(
+            new BABYLON.ExecuteCodeAction(
+                BABYLON.ActionManager.OnPickTrigger,
+                function(){
+
+                    // visual feedback
+                    mesh.scaling = new BABYLON.Vector3(55,55,75);
+
+                    setTimeout(() => {
+                        mesh.scaling = new BABYLON.Vector3(50,50,70);
+                    }, 200);
+
+                    text.text = "Barista: Hello! What would you like to order?";
+                }
+            )
+        );
     });
 });
 
 
 // WAITER
-let waiterMeshes;
-
 await BABYLON.SceneLoader.ImportMeshAsync("", "meshes/", "waiter.glb", scene)
 .then((result) => {
 
-    waiterMeshes = result.meshes;
-
-    waiterMeshes.forEach(mesh => {
+    result.meshes.forEach(mesh => {
 
         if (!mesh.getTotalVertices || mesh.getTotalVertices() === 0) return;
 
         mesh.scaling = new BABYLON.Vector3(50, 50, 70);
         mesh.position = new BABYLON.Vector3(-1.5, 0, 0.2);
         mesh.isPickable = true;
+
+        mesh.actionManager = new BABYLON.ActionManager(scene);
+
+        mesh.actionManager.registerAction(
+            new BABYLON.ExecuteCodeAction(
+                BABYLON.ActionManager.OnPickTrigger,
+                function(){
+                    text.text = "Waiter: Would you like coffee or tea?";
+                }
+            )
+        );
     });
 });
 
 // CUSTOMER
-let customerMeshes;
-
 await BABYLON.SceneLoader.ImportMeshAsync("", "meshes/", "customer1.glb", scene)
 .then((result) => {
 
-    customerMeshes = result.meshes;
-
-    customerMeshes.forEach(mesh => {
+    result.meshes.forEach(mesh => {
 
         if (!mesh.getTotalVertices || mesh.getTotalVertices() === 0) return;
 
         mesh.scaling = new BABYLON.Vector3(50, 50, 70);
         mesh.position = new BABYLON.Vector3(3, 0, 0.3);
         mesh.isPickable = true;
+
+        mesh.actionManager = new BABYLON.ActionManager(scene);
+
+        mesh.actionManager.registerAction(
+            new BABYLON.ExecuteCodeAction(
+                BABYLON.ActionManager.OnPickTrigger,
+                function(){
+                    text.text = "Customer: Is this seat taken?";
+                }
+            )
+        );
     });
 });
-
 
 
 /*Chair */
@@ -186,48 +215,6 @@ text.top = "-5%";
 gui.addControl(text);
 
 /* Interaction */
-
-baristaMeshes.forEach(mesh => {
-
-    mesh.actionManager = new BABYLON.ActionManager(scene);
-
-    mesh.actionManager.registerAction(
-        new BABYLON.ExecuteCodeAction(
-            BABYLON.ActionManager.OnPickTrigger,
-            function(){
-                text.text = "Hello! What would you like to order?";
-            }
-        )
-    );
-});
-
-waiterMeshes.forEach(mesh => {
-
-    mesh.actionManager = new BABYLON.ActionManager(scene);
-
-    mesh.actionManager.registerAction(
-        new BABYLON.ExecuteCodeAction(
-            BABYLON.ActionManager.OnPickTrigger,
-            function(){
-                text.text = "Would you like coffee or tea?";
-            }
-        )
-    );
-});
-
-customerMeshes.forEach(mesh => {
-
-    mesh.actionManager = new BABYLON.ActionManager(scene);
-
-    mesh.actionManager.registerAction(
-        new BABYLON.ExecuteCodeAction(
-            BABYLON.ActionManager.OnPickTrigger,
-            function(){
-                text.text = "Is this seat taken?";
-            }
-        )
-    );
-});
 
 
 return scene;
