@@ -283,10 +283,17 @@ function customerWaiterConversation() {
 
 //Enable XR
 const xr = await scene.createDefaultXRExperienceAsync({
-    uiOptions: {
-        sessionMode: "immersive-vr"
-    }
+    uiOptions: { sessionMode: "immersive-vr" },
 });
+
+xr.baseExperience.featuresManager.enableFeature(
+    BABYLON.WebXRFeatureName.TELEPORTATION,
+    "latest",
+    {
+        xrInput: xr.input,
+        floorMeshes: [ground]
+    }
+);
 
 return scene;
 
