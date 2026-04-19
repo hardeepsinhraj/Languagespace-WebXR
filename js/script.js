@@ -73,8 +73,6 @@ rightWall.material = wallMat;
 const table = BABYLON.MeshBuilder.CreateBox("table", {width: 4, height: 1.5, depth: 1}, scene);
 table.position = new BABYLON.Vector3(0, 0.75, 4);
 
-
-
 const tableMat = new BABYLON.StandardMaterial("tableMat", scene);
 tableMat.diffuseColor = new BABYLON.Color3(0.6,0.3,0.1);
 table.material = tableMat;
@@ -83,89 +81,104 @@ table.material = tableMat;
 
 // BARISTA
 
-await BABYLON.SceneLoader.ImportMeshAsync("", "meshes/", "barista3.glb", scene)
+BABYLON.SceneLoader.ImportMeshAsync("", "meshes/", "barista3.glb", scene)
 .then((result) => {
-
     result.meshes.forEach(mesh => {
-
         if (!mesh.getTotalVertices || mesh.getTotalVertices() === 0) return;
 
-        mesh.scaling = new BABYLON.Vector3(50, 50, 70);
-        mesh.position = new BABYLON.Vector3(0.3, -4.7, 0.5);
-        mesh.rotation.y += Math.PI;
+        mesh.scaling = new BABYLON.Vector3(50,50,70);
+        mesh.position = new BABYLON.Vector3(0.3,-4.7,0.5);
         mesh.isPickable = true;
 
         mesh.actionManager = new BABYLON.ActionManager(scene);
-
         mesh.actionManager.registerAction(
             new BABYLON.ExecuteCodeAction(
                 BABYLON.ActionManager.OnPickTrigger,
-                function(){
-
-                    // visual feedback
-                    mesh.scaling = new BABYLON.Vector3(55,55,75);
-
-                    setTimeout(() => {
-                        mesh.scaling = new BABYLON.Vector3(50,50,70);
-                    }, 200);
-
-                    text.text = "Barista: Hello! What would you like to order?";
-                }
+                () => baristaConversation()
             )
         );
     });
-});
+}).catch(err => console.log("Barista error:", err));
 
 
-// WAITER
-await BABYLON.SceneLoader.ImportMeshAsync("", "meshes/", "waiter.glb", scene)
+// WAITER-1
+BABYLON.SceneLoader.ImportMeshAsync("", "meshes/", "waiter1.glb", scene)
 .then((result) => {
-
     result.meshes.forEach(mesh => {
-
         if (!mesh.getTotalVertices || mesh.getTotalVertices() === 0) return;
 
-        mesh.scaling = new BABYLON.Vector3(50, 50, 70);
-        mesh.position = new BABYLON.Vector3(-1.5, 0, 0.2);
+        mesh.scaling = new BABYLON.Vector3(50,50,70);
+        mesh.position = new BABYLON.Vector3(-2.4,0,0.2);
         mesh.isPickable = true;
 
         mesh.actionManager = new BABYLON.ActionManager(scene);
-
         mesh.actionManager.registerAction(
             new BABYLON.ExecuteCodeAction(
                 BABYLON.ActionManager.OnPickTrigger,
-                function(){
-                    text.text = "Waiter: Would you like coffee or tea?";
-                }
+                () => waiter1Conversation()
             )
         );
     });
-});
+}).catch(err => console.log("Waiter1 error:", err));
 
-// CUSTOMER
-await BABYLON.SceneLoader.ImportMeshAsync("", "meshes/", "customer1.glb", scene)
+
+// CUSTOMER-1
+
+BABYLON.SceneLoader.ImportMeshAsync("", "meshes/", "customer1.glb", scene)
 .then((result) => {
-
     result.meshes.forEach(mesh => {
-
         if (!mesh.getTotalVertices || mesh.getTotalVertices() === 0) return;
 
-        mesh.scaling = new BABYLON.Vector3(50, 50, 70);
-        mesh.position = new BABYLON.Vector3(3, 0, 0.3);
+        mesh.scaling = new BABYLON.Vector3(50,50,70);
+        mesh.position = new BABYLON.Vector3(3,0,0.3);
         mesh.isPickable = true;
 
         mesh.actionManager = new BABYLON.ActionManager(scene);
-
         mesh.actionManager.registerAction(
             new BABYLON.ExecuteCodeAction(
                 BABYLON.ActionManager.OnPickTrigger,
-                function(){
-                    text.text = "Customer: Is this seat taken?";
-                }
+                () => customerWaiterConversation()
             )
         );
     });
-});
+}).catch(err => console.log("Customer error:", err));
+
+// CUSTOMER-2
+
+BABYLON.SceneLoader.ImportMeshAsync("", "meshes/", "customer2.glb", scene)
+.then((result) => {
+    result.meshes.forEach(mesh => {
+        if (!mesh.getTotalVertices || mesh.getTotalVertices() === 0) return;
+
+        mesh.scaling = new BABYLON.Vector3(50,50,70);
+        mesh.position = new BABYLON.Vector3(-1.5,0.5,0.2);
+        mesh.isPickable = true;
+
+        mesh.actionManager = new BABYLON.ActionManager(scene);
+    
+    });
+}).catch(err => console.log("Customer error:", err));
+
+
+//waiter-2
+BABYLON.SceneLoader.ImportMeshAsync("", "meshes/", "waiter2.glb", scene)
+.then((result) => {
+    result.meshes.forEach(mesh => {
+        if (!mesh.getTotalVertices || mesh.getTotalVertices() === 0) return;
+
+        mesh.scaling = new BABYLON.Vector3(50,50,70);
+        mesh.position = new BABYLON.Vector3(2,1,0.3);
+        mesh.isPickable = true;
+
+        mesh.actionManager = new BABYLON.ActionManager(scene);
+        mesh.actionManager.registerAction(
+            new BABYLON.ExecuteCodeAction(
+                BABYLON.ActionManager.OnPickTrigger,
+                () => customerWaiterConversation()
+            )
+        );
+    });
+}).catch(err => console.log("Waiter2 error:", err));
 
 
 /*Chair */
@@ -189,14 +202,14 @@ const chair4 = chair.clone("chair4");
 chair4.position = new BABYLON.Vector3(3, 0.5, -4.5);
 
 /*Tree */
- const tree = BABYLON.SceneLoader.ImportMeshAsync("", "./meshes/", "tree.glb").then((result) => {
+const tree = BABYLON.SceneLoader.ImportMeshAsync("", "./meshes/", "tree.glb").then((result) => {
         result.meshes[0].position = new BABYLON.Vector3(-8, 0.1, -7.5);
         
         result.meshes[0].scaling = new BABYLON.Vector3(250, 250, 250);
     });
 
     /*tree2 */
-    const tree2 = BABYLON.SceneLoader.ImportMeshAsync("", "./meshes/", "tree2.glb").then((result) => {
+const tree2 = BABYLON.SceneLoader.ImportMeshAsync("", "./meshes/", "tree2.glb").then((result) => {
         result.meshes[0].position = new BABYLON.Vector3(8, 0.1, -7.5);
         result.meshes[0].scaling = new BABYLON.Vector3(150, 150, 150);
     });
@@ -214,12 +227,62 @@ text.top = "-5%";
 
 gui.addControl(text);
 
-/* Interaction */
+/*Interaction functions*/
 
+// Barista conversation
+let baristaStep = 0;
+function baristaConversation() {
+    if (baristaStep === 0) text.text = "Barista: Hello! Welcome to our café.";
+    else if (baristaStep === 1) text.text = "Barista: What would you like to order?";
+    else if (baristaStep === 2) text.text = "Barista: One coffee, got it.";
+    else {
+        text.text = "Barista: Please wait, your order will be ready soon.";
+        baristaStep = -1;
+    }
+    baristaStep++;
+}
 
+// waiter-1 conversation
+let waiter1Step = 0;
+function waiter1Conversation() {
+    if (waiter1Step === 0) text.text = "Waiter: Hello! I will serve your order.";
+    else if (waiter1Step === 1) text.text = "Waiter: Here is your coffee.";
+    else if (waiter1Step === 2) text.text = "Waiter: Would you like anything else?";
+    else {
+        text.text = "Waiter: Thank you! Enjoy your time.";
+        waiter1Step = -1;
+    }
+    waiter1Step++;
+}
+// customer-waiter-2 conversation
+let cwStep = 0;
+function customerWaiterConversation() {
+
+    if (cwStep === 0) {
+        text.text = "Customer: Excuse me!";
+    } 
+    else if (cwStep === 1) {
+        text.text = "Waiter: Yes, how can I help you?";
+    } 
+    else if (cwStep === 2) {
+        text.text = "Customer: Can I get some water?";
+    } 
+    else if (cwStep === 3) {
+        text.text = "Waiter: Sure, I will bring it.";
+    } 
+    else if (cwStep === 4) {
+        text.text = "Waiter: Here is your water.";
+    } 
+    else {
+        text.text = "Customer: Thank you!";
+        cwStep = -1;
+    }
+
+    cwStep++;
+}
 return scene;
-};
 
+};
 createScene().then((scene) => {
     engine.runRenderLoop(function () {
         scene.render();
