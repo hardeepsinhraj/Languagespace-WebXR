@@ -280,12 +280,13 @@ function customerWaiterConversation() {
 
     cwStep++;
 }
-return scene;
 
 //Enable XR
 const xr = await scene.createDefaultXRExperienceAsync({
     floorMeshes: [ground]
 });
+
+return scene;
 
 };
 createScene().then((scene) => {
