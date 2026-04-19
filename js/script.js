@@ -283,7 +283,9 @@ function customerWaiterConversation() {
 
 //Enable XR
 const xr = await scene.createDefaultXRExperienceAsync({
-    floorMeshes: [ground]
+    uiOptions: {
+        sessionMode: "immersive-vr"
+    }
 });
 
 return scene;
