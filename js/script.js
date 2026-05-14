@@ -9,11 +9,7 @@ const scene = new BABYLON.Scene(engine);
 scene.clearColor = new BABYLON.Color3(0.8,0.9,1);
 
 // enable AR
-const xr = await scene.createDefaultXRExperienceAsync({
-    uiOptions: {
-        sessionMode: "immersive-vr"
-    }
-});
+const xr = await scene.createDefaultXRExperienceAsync();
 
 return scene;
 
